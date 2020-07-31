@@ -564,20 +564,20 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.System.Acts.SetLayoutScale,
-		C3.Plugins.Mouse.Cnds.OnClick,
-		C3.Plugins.System.Acts.SetBoolVar,
+		C3.Plugins.Sprite.Exps.X,
+		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.Mouse.Exps.X,
 		C3.Plugins.Mouse.Exps.Y,
+		C3.Plugins.Text.Acts.SetText,
+		C3.Plugins.Text.Acts.SetPos,
+		C3.Plugins.Mouse.Cnds.OnClick,
+		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.System.Acts.Scroll,
 		C3.Plugins.System.Exps.scrollx,
 		C3.Plugins.System.Exps.scrolly,
 		C3.Plugins.Mouse.Cnds.OnRelease,
-		C3.Plugins.Mouse.Cnds.IsOverObject,
-		C3.Plugins.Text.Acts.SetPos,
-		C3.Plugins.Sprite.Exps.X,
-		C3.Plugins.Sprite.Exps.Y,
-		C3.Plugins.Text.Acts.SetText,
+		C3.Plugins.Mouse.Cnds.OnObjectClicked,
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.Mouse.Cnds.OnAnyClick
 	];
@@ -592,12 +592,15 @@ self.C3_JsPropNameTable = [
 	{Desc: 0},
 	{HeadDeco: 0},
 	{DescrpDeco: 0},
+	{Marker: 0},
+	{DistText: 0},
 	{Zoom: 0},
 	{MX: 0},
 	{MY: 0},
 	{Move: 0},
 	{MinZoom: 0},
-	{MaxZoom: 0}
+	{MaxZoom: 0},
+	{Dist: 0}
 ];
 
 "use strict";
@@ -708,6 +711,21 @@ self.C3_JsPropNameTable = [
 		},
 		() => 0.1,
 		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			const f3 = p._GetNode(3).GetBoundMethod();
+			return () => C3.distanceTo(n0.ExpObject(), n1.ExpObject(), f2(), f3());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() * (2 / 10));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() + 20);
+		},
+		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
 		},
@@ -719,7 +737,7 @@ self.C3_JsPropNameTable = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 150);
+			return () => (n0.ExpObject() - 450);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -731,6 +749,10 @@ self.C3_JsPropNameTable = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 350);
+		},
+		p => {
+			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 90);
 		},
 		p => {
@@ -739,7 +761,7 @@ self.C3_JsPropNameTable = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 230);
+			return () => (n0.ExpObject() - 250);
 		},
 		p => {
 			const n0 = p._GetNode(0);
