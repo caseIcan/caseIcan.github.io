@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+div.Title{
+	position: absolute;
+	left: 300px;
+	top: -80px;
+	text-align: center;
+	font-size: 72px;
+	
+}
+div.Dates{
+	position: absolute;
+	text-align: center;
+	font-size: 64px;
+	top: 430px;
+	left: 18px;
+	
+}
+div.InnerDates{
+	display: grid;
+	grid:
+	'date1 date2 date3 date4 date5 date6 date7'
+	'date8 date9 date10 date11 date12 date13 date14';
+	'date16 date16 date17 date18 date19 date20 date21';
+	'date22 date23 date24 date25 date26 date27 date28';
+	'date29 date30 date31 date32 date33 date34 date35';
+	'date36 date37 date38 date39 date40 date41 date42';
+	'date43 date44 date45 date46 date47 date48 date49';
+	text-align: right;
+	font-size: 64px;
+}
+
+.InnerDates > div {
+  text-align: right;
+
+  width: 133px;
+  height: 133px;
+}
+
+</style>
+<body>
+<div>
+<form onkeyup="ChangeDate()">
+  <label for="Year">Year:</label>
+  <input type="number" id="curYear" name="curYear" style="width: 4em" value="0000">
+  <label for="Month">Month:</label>
+  <input type="number" id="curMonth" name="curMonth" style="width: 3em" value="01">
+</form>
+</div>
+<div class="Calendar">
+<div class="Title"><h1 id="month"></h1></div>
+<div class="Dates">
+<div class="InnerDates">
+<!--<PRE style=”font-family: 'Times New Roman'">-->
+<div class="date1">1</div>
+<div class="date2">2</div>
+<div class="date3">3</div>
+<div class="date4">4</div>
+<div class="date5">5</div>
+<div class="date6">6</div>
+<div class="date7">7</div>
+
+<div class="date8">8</div>
+<div class="date9">9</div>
+<div class="date10">10</div>
+<div class="date11">11</div>
+<div class="date12">12</div>
+<div class="date13">13</div>
+<div class="date14">14</div>
+
+<div class="date15">15</div>
+<div class="date16">16</div>
+<div class="date17">17</div>
+<div class="date18">18</div>
+<div class="date19">19</div>
+<div class="date20">20</div>
+<div class="date21">21</div>
+
+<div class="date22">22</div>
+<div class="date23">23</div>
+<div class="date24">24</div>
+<div class="date25">25</div>
+<div class="date26">26</div>
+<div class="date27">27</div>
+<div class="date28">28</div>
+
+<div class="date29">29</div>
+<div class="date30">30</div>
+<div class="date31">31</div>
+<div class="date32">32</div>
+<div class="date33">33</div>
+<div class="date34">34</div>
+<div class="date35">35</div>
+
+<div class="date36">36</div>
+<div class="date37">37</div>
+<div class="date38">38</div>
+<div class="date39">39</div>
+<div class="date40">40</div>
+<div class="date41">41</div>
+<div class="date42">42</div>
+
+<div class="date43">43</div>
+<div class="date44">44</div>
+<div class="date45">45</div>
+<div class="date46">46</div>
+<div class="date47">47</div>
+<div class="date48">48</div>
+<div class="date49">49</div>
+<!--</PRE>-->
+</div>
+</div>
+<img id="calImg" src="Months/Zenus.jpg">
+</div>
+<script>
+var Months=[
+	{index: 1,name: "Zenus",startingDay: 0,days: 37},
+	{index: 2,name: "Eron",startingDay: 2,days: 30},
+	{index: 3,name: "Nival",startingDay: 4,days: 33},
+	{index: 4,name: "Crotan",startingDay: 2,days: 30},
+	{index: 5,name: "Grich",startingDay: 4,days: 31},
+	{index: 6,name: "Keza",startingDay: 0,days: 39},
+	{index: 7,name: "Paldona",startingDay: 4,days: 33},
+	{index: 8,name: "Magna",startingDay: 2,days: 33},
+	{index: 9,name: "Io",startingDay: 0,days: 34},
+	{index: 10,name: "Jung",startingDay: 6,days: 32},
+	{index: 11,name: "Cin",startingDay: 3,days: 32},
+	{index: 12,name: "Lial",startingDay: 0,days: 36},
+	{index: 13,name: "Kmir",startingDay: 1,days: 19},
+];
+var year = "0000";
+var month = "0";
+var startingDay=0;
+function GetStartingDay(m,y){
+	if (m<14&&m>0){
+		return (Math.abs(Months[m-1].startingDay+y*6)%7);
+	}else{
+		return 0;
+	}
+}
+
+function ClearLettering(){
+	var i;	
+	for(i=1;i<50;i++){
+		document.getElementsByClassName("date"+i)[0].innerHTML = "";
+	}
+}
+function Lettering(sd,m){
+	ClearLettering();
+	var i;	
+	for(i = 1; i < Months[m-1].days+1;i++){
+		document.getElementsByClassName("date"+(i+sd))[0].innerHTML = i;
+	}
+}
+
+function ChangeDate(){
+	year = document.getElementById("curYear").value;
+	month = document.getElementById("curMonth").value;
+	if (month>13&&month<1){
+		return;
+	}
+	document.getElementById("month").innerHTML = Months[month-1].name//"Year: "+ year+"\n"+"Month: "+month;
+	startingDay=GetStartingDay(month,year);
+	//document.getElementById("start").innerHTML = startingDay;
+	//document.getElementById("date").innerHTML = Lettering(startingDay);
+	Lettering(startingDay,month)
+	document.getElementById("calImg").src="Months/"+Months[month-1].name+".jpg";
+	
+}
+
+ChangeDate()
+//document.getElementById("month").innerHTML = "Year: "+ year+"Month: "+month;
+</script>
+
+</body>
+</html>
